@@ -1,8 +1,7 @@
 "use client";
 import { FaMapMarkerAlt, FaUserTie } from "react-icons/fa";
 import { SiAccenture } from "react-icons/si";
-import { MdSecurity } from "react-icons/md";
-import Image from "next/image"; // Only if you're using Next.js
+import Image from "next/image";
 
 export const Experience = () => {
   const experiences = [
@@ -13,10 +12,11 @@ export const Experience = () => {
       location: "Pune, India",
       period: "June 2025 – July 2025",
       details: [
-        "Engineered secure RPA workflows using Blue Prism, optimizing manual processes.",
-        "Integrated Splunk SIEM for real-time log ingestion and threat detection dashboards.",
-        "Built Power Apps with dynamic flows via Power Automate for internal task orchestration.",
-        "Collaborated across teams under Agile delivery model with direct client interaction.",
+        "Selected for Accenture's prestigious AEH program based on technical excellence and leadership potential.",
+        "Engineered secure RPA workflows using Blue Prism, reducing manual task time by 40%.",
+        "Integrated Splunk SIEM for real-time threat detection, log ingestion, and incident visibility.",
+        "Designed Power Apps integrated with Power Automate for orchestrating cross-team tasks.",
+        "Practiced Agile methodology with daily stand-ups, retrospectives, and client interaction.",
       ],
     },
     {
@@ -24,7 +24,7 @@ export const Experience = () => {
       org: "Nirbhaya Safety App",
       logo: (
         <Image
-          src="/logos/nirbhaya.png" // put your app logo in public/logos folder
+          src="/logos/nirbhaya.png"
           alt="Nirbhaya App"
           width={32}
           height={32}
@@ -34,10 +34,33 @@ export const Experience = () => {
       location: "Remote, India",
       period: "Feb 2025 – Present",
       details: [
-        "Spearheaded end-to-end development of a scalable women's safety mobile app.",
-        "Implemented secure contact manager, GPS tracking, and JWT-based authentication.",
-        "Led UI/UX design, API integration (news, SMS), and ensured offline support.",
-        "Deployed with Firebase & Vercel; practiced CI/CD and responsive design strategies.",
+        "Led end-to-end development of a modern mobile safety app focused on rapid emergency response.",
+        "Built real-time location tracking, trusted contact manager, and JWT-based authentication.",
+        "Designed a dashboard-style UI with custom bottom navigation and emergency SOS interface.",
+        "Integrated APIs for live news articles, SMS alerting, and Firebase Firestore CRUD operations.",
+        "Deployed via Firebase and Vercel with CI/CD pipelines and full offline capability support.",
+      ],
+    },
+    {
+      role: "Freelance Full Stack Developer",
+      org: "MarketingLab",
+      logo: (
+        <Image
+          src="/logos/marketinglab.png"
+          alt="MarketingLab"
+          width={32}
+          height={32}
+          className="rounded-md"
+        />
+      ),
+      location: "Remote, India",
+      period: "Feb 2022 – May 2025",
+      details: [
+        "Built marketing dashboards and campaign automation tools using Next.js and MongoDB.",
+        "Secured client data via custom middleware, token validation, and encrypted route access.",
+        "Developed dynamic landing pages with A/B testing, SEO, and content personalization.",
+        "Optimized Lighthouse score to 96+ and integrated analytics pipelines with Mixpanel.",
+        "Deployed across clients using Vercel and GitHub Actions for CI/CD workflows.",
       ],
     },
   ];
