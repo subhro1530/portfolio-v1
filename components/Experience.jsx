@@ -24,10 +24,10 @@ export const Experience = () => {
       org: "Nirbhaya Safety App",
       logo: (
         <Image
-          src="/logos/nirbhaya.png"
+          src="/nirbhaya.png"
           alt="Nirbhaya App"
-          width={32}
-          height={32}
+          width={60}
+          height={40}
           className="rounded-md"
         />
       ),
@@ -46,7 +46,7 @@ export const Experience = () => {
       org: "MarketingLab",
       logo: (
         <Image
-          src="/logos/marketinglab.png"
+          src="/marketinglab.jpeg"
           alt="MarketingLab"
           width={32}
           height={32}
