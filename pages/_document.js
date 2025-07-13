@@ -6,7 +6,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <title>Shaswata Saha Portfolio</title>
+        <title>Shaswata Saha</title>
       </Head>
       <body>
         <Main />
