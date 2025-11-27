@@ -1,5 +1,6 @@
 "use client";
 import { FaGraduationCap, FaUniversity } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 export const Education = () => {
   const education = [
@@ -18,21 +19,18 @@ export const Education = () => {
       score: "Percentile: 95 / 100",
     },
   ];
+  const isRecentEdu = (duration) => /2025|2026|Present/i.test(duration);
 
   return (
     <section
-      className="w-full px-6 sm:px-12 py-16 bg-black text-white"
-      style={{
-        backgroundImage: `url('/light-bg.gif')`,
-        backgroundSize: "cover",
-        backgroundAttachment: "fixed",
-        backgroundPosition: "center",
-      }}
+      id="education"
+      data-section="education"
+      className="relative min-h-screen flex items-center px-4 sm:px-6 py-20 sm:py-28"
     >
-      <div className="max-w-5xl mx-auto space-y-10">
+      <div className="max-w-5xl mx-auto space-y-8 sm:space-y-10">
         {/* Section Header */}
         <div className="text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-cyan-400 uppercase tracking-wider mb-2">
+          <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-neonpurp-400 via-neonmag-500 to-neonpurp-300 bg-clip-text text-transparent uppercase tracking-wider mb-2">
             Education
           </h2>
           <p className="text-sm text-gray-400">
@@ -41,22 +39,37 @@ export const Education = () => {
         </div>
 
         {/* Education Cards */}
-        <div className="space-y-6">
+        <div className="space-y-6 sm:space-y-8">
           {education.map((edu, idx) => (
-            <div
+            <motion.div
               key={idx}
-              className="bg-white/5 border border-white/10 rounded-xl backdrop-blur-md p-5 shadow-md hover:shadow-cyan-500/10 transition duration-300"
+              initial={{ opacity: 0, y: 6 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.45, delay: idx * 0.04 }}
+              onPointerMove={(e) => {
+                const r = e.currentTarget.getBoundingClientRect();
+                const x = ((e.clientX - r.left) / r.width) * 100;
+                const y = ((e.clientY - r.top) / r.height) * 100;
+                e.currentTarget.style.backgroundImage = `radial-gradient(circle at ${x}% ${y}%, rgba(255,0,212,0.16), transparent 55%), linear-gradient(160deg,#1a0d29,#12081c)`;
+              }}
+              className="group relative bg-[#140c20] border border-neonpurp-500/30 rounded-xl p-5 sm:p-6 backdrop-blur-md shadow-[0_0_20px_-4px_rgba(255,0,212,0.4)] hover:shadow-neonmag-500/60 transition"
             >
-              <div className="flex items-center gap-3 mb-2">
-                <FaGraduationCap className="text-cyan-400 text-2xl" />
-                <h3 className="text-lg sm:text-xl font-semibold text-cyan-300">
+              <div className="flex items-center gap-2 sm:gap-3 mb-2">
+                <FaGraduationCap className="text-neonmag-500 text-2xl" />
+                <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-100 break-words">
                   {edu.degree}
                 </h3>
+                {isRecentEdu(edu.duration) && (
+                  <span className="text-[10px] px-2 py-1 rounded-full bg-neonmag-500/20 border border-neonmag-500/40 text-neonmag-100">
+                    Recent
+                  </span>
+                )}
               </div>
 
-              <div className="flex flex-col sm:flex-row sm:justify-between text-sm sm:text-base text-gray-300 mb-1">
-                <div className="flex items-center gap-2">
-                  <FaUniversity className="text-sm text-cyan-500" />
+              <div className="flex flex-col sm:flex-row sm:justify-between text-sm sm:text-base text-gray-300 mb-1 gap-1 sm:gap-2">
+                <div className="flex items-center gap-2 break-words">
+                  <FaUniversity className="text-sm text-neonmag-500" />
                   <span>{edu.school}</span>
                 </div>
                 <span className="text-gray-400 italic">{edu.duration}</span>
@@ -67,7 +80,9 @@ export const Education = () => {
               <div className="mt-1 text-sm text-green-400 font-medium">
                 {edu.score}
               </div>
-            </div>
+
+              <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 bg-gradient-to-r from-neonmag-500/10 to-transparent transition" />
+            </motion.div>
           ))}
         </div>
       </div>

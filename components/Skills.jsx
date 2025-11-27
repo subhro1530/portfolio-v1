@@ -1,4 +1,5 @@
 "use client";
+import { motion } from "framer-motion";
 import {
   FaAws,
   FaDocker,
@@ -25,6 +26,7 @@ import {
   SiFigma,
 } from "react-icons/si";
 import { BsRobot } from "react-icons/bs";
+import { useState } from "react";
 
 export const Skills = () => {
   const skills = [
@@ -129,49 +131,73 @@ export const Skills = () => {
       desc: "Strong knowledge of agile engineering, from requirement analysis to secure coding and deployment cycles.",
     },
   ];
+  const [showAll, setShowAll] = useState(false);
+  const visible = showAll ? skills : skills.slice(0, 6);
 
   return (
     <section
-      className="w-full bg-black text-white px-6 sm:px-12 py-16 md:py-20"
-      style={{
-        backgroundImage: `url('/light-bg.gif')`,
-        backgroundSize: "cover",
-        backgroundAttachment: "fixed",
-        backgroundPosition: "center",
-      }}
+      id="skills"
+      data-section="skills"
+      className="relative min-h-screen flex items-center px-4 sm:px-6 py-20 sm:py-28"
     >
-      <div className="max-w-6xl mx-auto space-y-10">
+      <div className="max-w-6xl mx-auto space-y-8 sm:space-y-10">
         <div className="text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-cyan-400 uppercase tracking-wider mb-2">
+          <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-neonpurp-400 via-neonmag-500 to-neonpurp-300 bg-clip-text text-transparent uppercase tracking-wider mb-2">
             Skills
           </h2>
-          <p className="text-gray-400 text-sm sm:text-base">
-            My technical arsenal spans cloud, automation, frontend, backend,
-            DevOps, cybersecurity & more.
+          <p className="text-sm text-gray-400">
+            Core technologies spanning full‑stack, cloud, security, and
+            automation.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {skills.map((skill, idx) => (
-            <div
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {visible.map((skill, idx) => (
+            <motion.div
               key={idx}
-              className="bg-white/5 border border-cyan-800/40 backdrop-blur-md p-6 rounded-lg shadow-md hover:shadow-cyan-500/10 transition duration-300"
+              initial={{ opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.45, delay: idx * 0.06 }}
+              onPointerMove={(e) => {
+                const r = e.currentTarget.getBoundingClientRect();
+                const x = ((e.clientX - r.left) / r.width) * 100;
+                const y = ((e.clientY - r.top) / r.height) * 100;
+                e.currentTarget.style.backgroundImage = `radial-gradient(circle at ${x}% ${y}%, rgba(147,51,234,0.28), transparent 62%), linear-gradient(160deg,#1e0f30,#130a20)`;
+              }}
+              className="relative rounded-xl border border-neonpurp-500/40 bg-[#1a0d29] p-5 sm:p-6 shadow-[0_0_22px_-6px_rgba(147,51,234,0.55)] hover:shadow-neonmag-500/60 transition"
+              role="article"
             >
               <div className="flex items-center gap-3 mb-3">
-                <div className="text-2xl">{skill.icon}</div>
-                <h3 className="text-xl font-semibold text-cyan-300">
+                <div className="text-xl sm:text-2xl">{skill.icon}</div>
+                <h3 className="text-lg sm:text-xl font-semibold text-neonmag-100 break-words">
                   {skill.title}
                 </h3>
               </div>
-              <p className="text-gray-300 text-sm mb-3">{skill.desc}</p>
-              <ul className="list-disc list-inside space-y-1 text-gray-400 text-sm pl-1">
+              <p className="text-gray-300 text-sm mb-3 break-words">
+                {skill.desc}
+              </p>
+              <ul className="list-disc list-inside space-y-1 text-gray-300 text-sm pl-1">
                 {skill.tools.map((tool, i) => (
-                  <li key={i}>{tool}</li>
+                  <li key={i} className="break-words">
+                    {tool}
+                  </li>
                 ))}
               </ul>
-            </div>
+              <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 bg-gradient-to-br from-neonmag-500/10 to-transparent transition" />
+            </motion.div>
           ))}
         </div>
+        {skills.length > 6 && (
+          <div className="mt-8 sm:mt-10 flex justify-center">
+            <button
+              onClick={() => setShowAll((v) => !v)}
+              className="px-6 py-3 text-xs tracking-wide font-semibold rounded-full bg-neonmag-500 text-black hover:bg-neonmag-400 transition shadow-lg hover:shadow-neonmag-500/40 active:scale-95"
+            >
+              {showAll ? "Show Less" : "View All"}
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

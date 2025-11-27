@@ -2,6 +2,7 @@
 import { FaMapMarkerAlt, FaUserTie } from "react-icons/fa";
 import { SiAccenture } from "react-icons/si";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export const Experience = () => {
   const experiences = [
@@ -64,35 +65,62 @@ export const Experience = () => {
       ],
     },
   ];
+  const isRecentExp = (period) => /2025|Present/i.test(period);
 
   return (
-    <section className="w-full px-6 sm:px-12 py-16 bg-black text-white">
-      <div className="max-w-5xl mx-auto space-y-10">
-        <h2 className="text-3xl sm:text-4xl font-bold text-cyan-400 text-center">
-          Experience
-        </h2>
+    <section
+      id="experience"
+      data-section="experience"
+      className="relative min-h-screen flex items-center px-4 sm:px-6 py-20 sm:py-28"
+    >
+      <div className="max-w-5xl mx-auto space-y-8 sm:space-y-10">
+        <div className="text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-neonpurp-400 via-neonmag-500 to-neonpurp-300 bg-clip-text text-transparent uppercase tracking-wider mb-2">
+            Experience
+          </h2>
+          <p className="text-sm text-gray-400">
+            Roles, impact, and recent responsibilities.
+          </p>
+        </div>
 
         {experiences.map((exp, idx) => (
-          <div
+          <motion.div
             key={idx}
-            className="bg-white/5 border border-white/10 rounded-xl backdrop-blur-md p-6 space-y-4 shadow-md"
+            initial={{ opacity: 0, y: 6 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45, delay: idx * 0.06 }}
+            onPointerMove={(e) => {
+              const r = e.currentTarget.getBoundingClientRect();
+              const x = ((e.clientX - r.left) / r.width) * 100;
+              const y = ((e.clientY - r.top) / r.height) * 100;
+              e.currentTarget.style.backgroundImage = `radial-gradient(circle at ${x}% ${y}%, rgba(147,51,234,0.25), transparent 60%), linear-gradient(150deg,#1d102b,#12081c)`;
+            }}
+            className="relative rounded-xl p-5 sm:p-6 border border-neonpurp-500/30 bg-[#140c20] shadow-[0_0_20px_-4px_rgba(147,51,234,0.5)] hover:shadow-neonmag-500/50 transition"
           >
             {/* Role and Company Row */}
             <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
-              <div className="flex items-center gap-3 text-xl font-semibold text-cyan-300">
+              <div className="flex items-center gap-2 sm:gap-3 text-lg sm:text-xl font-semibold text-neonmag-100 break-words">
                 <FaUserTie />
                 {exp.role}
+                {isRecentExp(exp.period) && (
+                  <span className="ml-2 text-[10px] px-2 py-1 rounded-full bg-neonmag-500/20 border border-neonmag-500/40 text-neonmag-100">
+                    Recent
+                  </span>
+                )}
               </div>
-              <span className="text-sm text-gray-400">{exp.period}</span>
+              <span className="text-xs sm:text-sm text-gray-300">
+                {exp.period}
+              </span>
             </div>
 
             {/* Organization and Location Row */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div className="flex items-center gap-2 text-sm text-gray-300">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3">
+              <div className="flex items-center gap-2 text-sm text-gray-300 break-words">
                 {exp.logo}
-                <span className="font-medium">{exp.org}</span>
+                <span className="font-medium text-gray-100">{exp.org}</span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-gray-400">
+              <div className="flex items-center gap-2 text-sm text-gray-400 break-words">
                 <FaMapMarkerAlt />
                 <span>{exp.location}</span>
               </div>
@@ -101,10 +129,12 @@ export const Experience = () => {
             {/* Description */}
             <ul className="list-disc list-inside text-sm text-gray-300 space-y-1 pt-2">
               {exp.details.map((point, i) => (
-                <li key={i}>{point}</li>
+                <li key={i} className="break-words">
+                  {point}
+                </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
         ))}
       </div>
     </section>

@@ -1,4 +1,5 @@
 "use client";
+import { motion } from "framer-motion";
 import {
   FaBolt,
   FaBrain,
@@ -11,92 +12,76 @@ import {
   FaProjectDiagram,
   FaUsersCog,
 } from "react-icons/fa";
+import { useState } from "react";
 
 export const Summary = () => {
-  const summary = [
+  const highlights = [
     {
-      text: "Energetic CSE undergrad with a sharp edge in full-stack engineering and cybersecurity, driving real-world tech transformation.",
-      icon: <FaBolt />,
+      title: "Intern @ Accenture",
+      text: "Automation, SIEM, SOC workflows; Blue Prism, Power Automate, Splunk. Built secure workflows and dashboards.",
     },
     {
-      text: "Engineered VitalityAI — an AI-powered, IoT + Blockchain-based emergency response system recognized by national foundations.",
-      icon: <FaProjectDiagram />,
+      title: "Security Analyst",
+      text: "Threat detection, vulnerability assessment, SDLC hardening; OWASP, Burp, network defense and monitoring.",
     },
     {
-      text: "Co-founded 'Nirbhaya', a women's safety app featuring real-time GPS tracking, SOS alerts, and secure local contact storage.",
-      icon: <FaUserShield />,
+      title: "Oracle Cloud Certified",
+      text: "Architect Associate, Developer Professional; OCI networking, compute, IAM and cost-optimized deployments.",
     },
     {
-      text: "Hands-on experience at Accenture in Power Automate, Splunk SIEM, and Blue Prism RPA — bridging automation and security.",
-      icon: <FaTools />,
+      title: "ISC² CC | Fortinet",
+      text: "Foundational security certs; hands-on firewall/VPN, SOC simulations, policy-based access control.",
     },
     {
-      text: "Cloud-native developer with expertise in AWS (EC2, S3, Lambda, IAM), Docker, and Kubernetes — building scalable infra.",
-      icon: <FaLaptopCode />,
+      title: "Full‑Stack Dev (Next.js • MERN • PostgreSQL)",
+      text: "React/Next, Node, API design, SQL/NoSQL; production deployments with CI/CD.",
     },
     {
-      text: "Skilled in modern frameworks: React, Next.js, Node.js, Spring Boot, Flask, Django, FastAPI — delivering fast, secure UX.",
-      icon: <FaBrain />,
-    },
-    {
-      text: "Winner at Hackathons; built award-winning emergency healthcare platform — secured 'Status Code 1' & RISE Foundation offers.",
-      icon: <FaAward />,
-    },
-    {
-      text: "Certified by Fortinet in cybersecurity fundamentals — mastered threat detection, firewalls, SIEM integration, and VPNs.",
-      icon: <FaUserShield />,
-    },
-    {
-      text: "Excellent communicator and team collaborator — thrives in agile workflows, with strong problem-solving and leadership skills.",
-      icon: <FaUsersCog />,
-    },
-    {
-      text: "Punctual, reliable, and deadline-focused — consistently delivers with precision and professionalism.",
-      icon: <FaClock />,
-    },
-    {
-      text: "Portfolio: https://ssaha.vercel.app",
-      icon: <FaLink />,
+      title: "Projects: WireWave, Nirbhaya, VitalityAI",
+      text: "Secure messaging, safety app, AIoT healthcare; cloud, realtime UX, and E2E privacy.",
     },
   ];
+  const [showAll, setShowAll] = useState(false);
+  const visible = showAll ? highlights : highlights.slice(0, 4);
 
   return (
     <section
-      className="w-full bg-black text-white px-4 sm:px-6 md:px-12 py-16 md:py-24 flex items-center justify-center"
-      style={{
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        backgroundAttachment: "fixed",
-        backgroundPosition: "center",
-      }}
+      id="summary"
+      data-section="summary"
+      className="relative min-h-screen flex items-center px-6 py-28"
     >
-      <div className="max-w-6xl w-full text-center space-y-10">
-        {/* Section Heading */}
-        <div className="space-y-2">
-          <h2 className="text-3xl sm:text-4xl font-bold text-cyan-400 tracking-wide uppercase">
-            Summary
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-6">
+          <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-neonpurp-400 via-neonmag-500 to-neonpurp-300 bg-clip-text text-transparent uppercase tracking-wider mb-2">
+            Highlights
           </h2>
-          <p className="text-sm sm:text-base text-gray-400 font-light">
-            A snapshot of my journey, skills & tech-driven accomplishments
+          <p className="text-sm text-gray-400">
+            A quick snapshot of my profile, stack, and recent wins.
           </p>
         </div>
-
-        {/* Bullet Points */}
-        <div className="space-y-6 text-left">
-          {summary.map((item, idx) => (
+        <div className="mt-6 grid md:grid-cols-2 gap-6">
+          {visible.map((h, i) => (
             <div
-              key={idx}
-              className="flex items-start gap-3 sm:gap-4 border-l-4 border-cyan-500 pl-4 sm:pl-5"
+              key={i}
+              className="relative p-5 rounded-xl border border-neonpurp-500/30 bg-[#140c20] shadow-[0_0_18px_-4px_rgba(255,0,212,0.35)]"
             >
-              <div className="text-cyan-400 text-base sm:text-lg mt-1 shrink-0">
-                {item.icon}
+              <div className="text-neonmag-100 text-sm font-semibold">
+                {h.title}
               </div>
-              <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
-                {item.text}
-              </p>
+              <p className="text-sm sm:text-base text-gray-300">{h.text}</p>
             </div>
           ))}
         </div>
+        {highlights.length > 4 && (
+          <div className="mt-8 flex justify-center">
+            <button
+              onClick={() => setShowAll((v) => !v)}
+              className="px-6 py-3 text-xs tracking-wide font-semibold rounded-full bg-neonmag-500 text-black hover:bg-neonmag-400 transition shadow-lg shadow-neonmag-500/30 active:scale-95"
+            >
+              {showAll ? "Show Less" : "View All"}
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

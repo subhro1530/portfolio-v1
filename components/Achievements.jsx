@@ -1,4 +1,5 @@
 "use client";
+import { motion } from "framer-motion";
 import {
   FaAward,
   FaShieldAlt,
@@ -6,7 +7,7 @@ import {
   FaTags,
   FaLanguage,
 } from "react-icons/fa";
-// import { SiTryhackme, SiAmazonaws } from "react-icons/si
+import { useState } from "react";
 
 export const Achievements = () => {
   const achievements = [
@@ -47,37 +48,143 @@ export const Achievements = () => {
       icon: <FaAward className="text-yellow-300 text-xl" />,
     },
   ];
+  const [showAll, setShowAll] = useState(false);
+  const visible = showAll ? achievements : achievements.slice(0, 6);
+  const markRecent = (a) =>
+    /AWS|TryHackMe|Fortinet|Cybersecurity|2025|Advanced/i.test(
+      a.title + " " + a.desc
+    );
+
+  // Certifications gallery (use provided images; keep titles for items without images)
+  const certifications = [
+    {
+      title: "Oracle Cloud Infrastructure Architect Associate",
+      img: "/ocicloudarch.jpeg",
+    },
+    {
+      title: "Oracle Cloud Developer Professional",
+      img: "/ocidev.jpeg",
+    },
+    {
+      title: "ISC² Certified in Cybersecurity (CC)",
+      img: "/isc2cc.jpeg",
+    },
+    {
+      title: "Fortinet NSE Fundamentals",
+      img: "/fortinet.jpeg",
+    },
+    {
+      title: "CNSP – Cloud Native Security Practitioner",
+      img: "/cnsp.jpeg",
+    },
+    // keep text-only fallback entries if needed
+    { title: "CompTIA Security+ (in progress)", img: "" },
+  ];
 
   return (
-    <section className="bg-black text-white py-16 px-4 sm:px-12">
-      <h2 className="text-3xl font-bold text-cyan-400 text-center mb-12">
-        Achievements
-      </h2>
+    <section
+      id="achievements"
+      data-section="achievements"
+      className="relative min-h-screen flex items-center px-4 sm:px-6 py-20 sm:py-28"
+    >
+      <div className="max-w-5xl mx-auto w-full">
+        {/* Title + subtitle (like Education) */}
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-neonpurp-400 via-neonmag-500 to-neonpurp-300 bg-clip-text text-transparent uppercase tracking-wider mb-2">
+            Achievements
+          </h2>
+          <p className="text-sm text-gray-400">
+            Awards, certifications, and milestones highlighting my recent
+            growth.
+          </p>
+        </div>
 
-      <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-        {achievements.map((a, i) => (
-          <div
-            key={i}
-            className="bg-white/5 p-6 rounded-xl backdrop-blur-lg border border-white/10 space-y-3"
-          >
-            <div className="flex items-center gap-3">
-              {a.icon}
-              <h3 className="text-lg font-semibold text-cyan-300">{a.title}</h3>
-            </div>
-            <p className="text-sm text-gray-300">{a.desc}</p>
-            <div className="flex flex-wrap gap-2">
-              <FaTags className="text-gray-400" />
-              {a.tags.map((tag, j) => (
-                <span
-                  key={j}
-                  className="bg-cyan-800 px-2 py-1 text-xs rounded-full"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
+        {/* Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+          {visible.map((a, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 6 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.45, delay: i * 0.05 }}
+              onPointerMove={(e) => {
+                const r = e.currentTarget.getBoundingClientRect();
+                const x = ((e.clientX - r.left) / r.width) * 100;
+                const y = ((e.clientY - r.top) / r.height) * 100;
+                e.currentTarget.style.backgroundImage = `radial-gradient(circle at ${x}% ${y}%, rgba(255,0,212,0.22), transparent 60%), linear-gradient(140deg,#1d102b,#12081c)`;
+              }}
+              className="relative p-5 sm:p-6 rounded-xl border border-neonpurp-500/30 bg-[#140c20] shadow-[0_0_24px_-6px_rgba(255,0,212,0.5)] hover:shadow-neonmag-500/60 transition"
+            >
+              <div className="flex items-center gap-2 sm:gap-3">
+                {a.icon}
+                <h3 className="text-base sm:text-lg font-semibold text-neonmag-100 break-words">
+                  {a.title}
+                </h3>
+                {markRecent(a) && (
+                  <span className="text-[10px] px-2 py-1 rounded-full bg-neonmag-500/20 border border-neonmag-500/40 text-neonmag-100">
+                    Recent
+                  </span>
+                )}
+              </div>
+              <p className="text-sm text-gray-300 break-words">{a.desc}</p>
+              <div className="flex flex-wrap gap-2 items-center">
+                <FaTags className="text-gray-400" />
+                {a.tags.map((tag, j) => (
+                  <span
+                    key={j}
+                    className="bg-neonmag-500/10 border border-neonmag-500/25 px-2 py-1 text-xs rounded-full text-neonmag-100"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 bg-gradient-to-bl from-neonmag-500/10 to-transparent transition" />
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Certifications gallery */}
+        <div className="mt-10 sm:mt-12">
+          <h3 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-neonpurp-400 via-neonmag-500 to-neonpurp-300 bg-clip-text text-transparent text-center mb-4">
+            Certifications
+          </h3>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            {certifications.map((c, i) => (
+              <div
+                key={i}
+                className="group relative rounded-lg overflow-hidden border border-neonpurp-500/30 bg-[#12081c]"
+              >
+                {c.img ? (
+                  <img
+                    src={c.img}
+                    alt={c.title}
+                    className="w-full h-full object-cover aspect-square"
+                  />
+                ) : (
+                  <div className="flex items-center justify-center aspect-square text-center px-3 text-xs sm:text-sm text-gray-300">
+                    {c.title}
+                  </div>
+                )}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-t from-black/50 to-transparent transition" />
+                <div className="absolute bottom-0 left-0 right-0 p-2 text-[11px] sm:text-xs text-neonmag-100 bg-[#1d102b]/50 backdrop-blur-md">
+                  {c.title}
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
+
+        {achievements.length > 6 && (
+          <div className="mt-8 sm:mt-10 flex justify-center">
+            <button
+              onClick={() => setShowAll((v) => !v)}
+              className="px-6 py-3 text-xs tracking-wide font-semibold rounded-full bg-neonmag-500 text-black hover:bg-neonmag-400 transition shadow-lg hover:shadow-neonmag-500/40 active:scale-95"
+            >
+              {showAll ? "Show Less" : "View All"}
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
