@@ -8,6 +8,7 @@ import {
   FaLanguage,
 } from "react-icons/fa";
 import { useState } from "react";
+import { Certifications } from "./Certifications";
 
 export const Achievements = () => {
   const achievements = [
@@ -55,40 +56,14 @@ export const Achievements = () => {
       a.title + " " + a.desc
     );
 
-  // Certifications gallery (use provided images; keep titles for items without images)
-  const certifications = [
-    {
-      title: "Oracle Cloud Infrastructure Architect Associate",
-      img: "/ocicloudarch.jpeg",
-    },
-    {
-      title: "Oracle Cloud Developer Professional",
-      img: "/ocidev.jpeg",
-    },
-    {
-      title: "ISC² Certified in Cybersecurity (CC)",
-      img: "/isc2cc.jpeg",
-    },
-    {
-      title: "Fortinet NSE Fundamentals",
-      img: "/fortinet.jpeg",
-    },
-    {
-      title: "CNSP – Cloud Native Security Practitioner",
-      img: "/cnsp.jpeg",
-    },
-    // keep text-only fallback entries if needed
-    { title: "CompTIA Security+ (in progress)", img: "" },
-  ];
-
   return (
     <section
       id="achievements"
       data-section="achievements"
       className="relative min-h-screen flex items-center px-4 sm:px-6 py-20 sm:py-28"
     >
-      <div className="max-w-5xl mx-auto w-full">
-        {/* Title + subtitle (like Education) */}
+      <div className="max-w-6xl mx-auto w-full">
+        {/* Title + subtitle */}
         <div className="text-center mb-8 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-neonpurp-400 via-neonmag-500 to-neonpurp-300 bg-clip-text text-transparent uppercase tracking-wider mb-2">
             Achievements
@@ -99,7 +74,7 @@ export const Achievements = () => {
           </p>
         </div>
 
-        {/* Cards */}
+        {/* Achievements grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
           {visible.map((a, i) => (
             <motion.div
@@ -144,34 +119,19 @@ export const Achievements = () => {
           ))}
         </div>
 
-        {/* Certifications gallery */}
-        <div className="mt-10 sm:mt-12">
-          <h3 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-neonpurp-400 via-neonmag-500 to-neonpurp-300 bg-clip-text text-transparent text-center mb-4">
-            Certifications
-          </h3>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-            {certifications.map((c, i) => (
-              <div
-                key={i}
-                className="group relative rounded-lg overflow-hidden border border-neonpurp-500/30 bg-[#12081c]"
-              >
-                {c.img ? (
-                  <img
-                    src={c.img}
-                    alt={c.title}
-                    className="w-full h-full object-cover aspect-square"
-                  />
-                ) : (
-                  <div className="flex items-center justify-center aspect-square text-center px-3 text-xs sm:text-sm text-gray-300">
-                    {c.title}
-                  </div>
-                )}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-t from-black/50 to-transparent transition" />
-                <div className="absolute bottom-0 left-0 right-0 p-2 text-[11px] sm:text-xs text-neonmag-100 bg-[#1d102b]/50 backdrop-blur-md">
-                  {c.title}
-                </div>
-              </div>
-            ))}
+        {/* Certifications section with spacing and single header */}
+        <div className="mt-12 sm:mt-16">
+          <div className="text-center mb-4 sm:mb-6">
+            <h3 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-neonpurp-400 via-neonmag-500 to-neonpurp-300 bg-clip-text text-transparent uppercase tracking-wider">
+              Certifications
+            </h3>
+            <p className="text-xs sm:text-sm text-gray-400">
+              Tap to preview; click to maximize.
+            </p>
+          </div>
+          {/* Gallery: ensure gaps are generous on mobile */}
+          <div className="space-y-4">
+            <Certifications />
           </div>
         </div>
 

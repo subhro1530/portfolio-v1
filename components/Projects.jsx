@@ -136,8 +136,20 @@ export const Projects = () => {
       tags: ["Next.js", "React Native", "JWT", "Realtime", "AI", "Cloud"],
     },
   ];
+
+  // reorder so WireWave appears first
+  const wireIdx = projects.findIndex((p) => /^WireWave/i.test(p.title));
+  const orderedProjects =
+    wireIdx > 0
+      ? [
+          projects[wireIdx],
+          ...projects.slice(0, wireIdx),
+          ...projects.slice(wireIdx + 1),
+        ]
+      : projects;
+
   const [showAll, setShowAll] = useState(false);
-  const visible = showAll ? projects : projects.slice(0, 6);
+  const visible = showAll ? orderedProjects : orderedProjects.slice(0, 6);
   const isRecent = (date) => /2025|Present/i.test(date);
 
   return (

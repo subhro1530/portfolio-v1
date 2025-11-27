@@ -80,7 +80,7 @@ export const Hero = () => {
     <section
       id="hero"
       data-section="hero"
-      className="relative w-screen min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative w-screen min-h-screen flex items-center justify-center overflow-hidden pt-20 sm:pt-24"
       style={{
         background: `
           radial-gradient(circle at ${gradPos.x}% ${gradPos.y}%, rgba(255,0,212,0.30), transparent 60%),
@@ -163,9 +163,16 @@ export const Hero = () => {
         >
           <motion.div
             style={{ rotateX: smoothX, rotateY: smoothY }}
-            className="relative w-full sm:w-[85vw] lg:w-[28vw] aspect-[4/5] sm:aspect-[3/4] lg:aspect-[3/4] overflow-hidden rounded-2xl bg-[#1d102b] border border-neonpurp-500/40 shadow-[0_0_28px_-4px_rgba(147,51,234,0.45)]"
+            className="relative w-full sm:w-[85vw] lg:w-[28vw] aspect-square overflow-hidden rounded-2xl bg-[#1d102b] border border-neonpurp-500/40 shadow-[0_0_28px_-4px_rgba(147,51,234,0.45)]"
           >
-            <div className="absolute inset-0 ring-1 ring-neonmag-500/40 rounded-2xl animate-glow" />
+            {/* Profile 1:1 with magenta overlay */}
+            <img
+              src="/profile.jpg"
+              alt="Profile"
+              className="w-full h-full object-cover rounded-2xl"
+            />
+            <div className="absolute inset-0 rounded-2xl pointer-events-none bg-gradient-to-tr from-neonmag-500/20 via-transparent to-neonpurp-500/15 mix-blend-screen" />
+            <div className="absolute inset-0 ring-1 ring-neonmag-500/40 rounded-2xl pointer-events-none" />
           </motion.div>
         </motion.div>
       </div>
