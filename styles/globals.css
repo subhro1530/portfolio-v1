@@ -2,7 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#__next {
+  min-height: 100%;
+}
+
+html {
+  background-color: #05020b;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
 body {
-  font-family: 'Inter', sans-serif;
+  margin: 0;
+  font-family: "Inter", sans-serif;
   background: linear-gradient(to right bottom, #0f0f0f, #1c1c1c);
+  color: #ffffff;
+  overflow-x: hidden;
+  background-attachment: fixed;
+}
+
+@supports (min-height: 100dvh) {
+  body {
+    min-height: 100dvh;
+  }
 }

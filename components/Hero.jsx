@@ -80,7 +80,7 @@ export const Hero = () => {
     <section
       id="hero"
       data-section="hero"
-      className="relative w-screen min-h-screen flex items-center justify-center overflow-hidden pt-20 sm:pt-24"
+      className="relative w-full min-h-screen flex items-center justify-center overflow-hidden pt-20 sm:pt-24"
       style={{
         background: `
           radial-gradient(circle at ${gradPos.x}% ${gradPos.y}%, rgba(255,0,212,0.30), transparent 60%),
