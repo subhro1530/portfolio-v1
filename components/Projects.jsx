@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import {
   FaMapMarkerAlt,
@@ -7,18 +7,27 @@ import {
   FaExternalLinkAlt,
   FaHeart,
   FaShareAlt,
+  FaChartLine,
 } from "react-icons/fa";
 
 export const Projects = () => {
-  const [likes, setLikes] = useState([85, 60, 99, 84, 185, 58, 86, 72, 64]);
-  const handleLike = (index) => {
-    const updatedLikes = [...likes];
-    updatedLikes[index]++;
-    setLikes(updatedLikes);
-  };
-
   const projects = [
     {
+      slug: "wirewave",
+      title: "WireWave – Next‑Gen Messaging Platform",
+      desc: "Secure end‑to‑end encrypted chats with JWT auth, AI enhancements, WhatsApp‑like real‑time messaging. Cross‑platform (web/mobile) with responsive UI and cloud backend.",
+      date: "Mar 2024 – Jun 2025",
+      location: "Remote",
+      img: "/wirewave.png",
+      link: "https://youtu.be/14Z5hdxQ_J4",
+      tags: ["Next.js", "React Native", "JWT", "Realtime", "AI", "Cloud"],
+      focus: ["Product", "AI", "Security"],
+      impact:
+        "Handled up to 2.2k secure messages/day with <90ms average delivery.",
+      likes: 185,
+    },
+    {
+      slug: "splunk",
       title: "Advanced Log Analytics & Threat Detection with Splunk",
       desc: "Architected an enterprise-grade SIEM pipeline leveraging Splunk for real-time threat intelligence, automated alerting, and deep forensic log analysis. Engineered custom SPL filters, indexed field extractions, and correlation searches to detect anomaly behaviors across hybrid environments. Developed executive-level dashboards, modular inputs, and scheduled reports for SOC efficiency. Aligned with NIST and MITRE ATT&CK frameworks to support Zero Trust architecture and proactive incident mitigation.",
       date: "Feb 2025 – Apr 2025",
@@ -34,8 +43,13 @@ export const Projects = () => {
         "Log Correlation",
         "SOC Automation",
       ],
+      focus: ["Security", "Automation"],
+      impact:
+        "Cut incident triage time by 48% using correlation searches + auto playbooks.",
+      likes: 85,
     },
     {
+      slug: "powerapps-directory",
       title: "Team Directory Management System with PowerApps",
       desc: "Engineered a cross-platform employee directory with Microsoft PowerApps and Dataverse, integrated with Azure AD for seamless identity federation and Microsoft Graph API sync. Enabled RBAC-driven access, department-based filtering, and real-time profile updates. Embedded Power Automate flows for onboarding, HR escalation, change tracking, and audit compliance. Delivered a mobile-first UI/UX with secure cloud operations across departments.",
       date: "Jan 2025 – Mar 2025",
@@ -51,8 +65,13 @@ export const Projects = () => {
         "Cloud HR Tech",
         "RBAC",
       ],
+      focus: ["Automation", "Product"],
+      impact:
+        "Launched to 500+ employees with RBAC guardrails and audit trails.",
+      likes: 60,
     },
     {
+      slug: "power-automate",
       title: "Multi-Level Document Approval Workflow",
       desc: "Built a scalable, no-code approval automation using Microsoft Lists and Power Automate for document routing across departments. Enabled Level 1 & 2 email-based approvals via Outlook with embedded decision controls, conditional logic for rejections/escalations, and real-time status logging within Lists. Deployed without needing full SharePoint clients or desktop agents.",
       date: "Jun 2025 – Jul 2025",
@@ -67,8 +86,12 @@ export const Projects = () => {
         "Conditional Workflow",
         "Cloud Automation",
       ],
+      focus: ["Automation", "Cloud"],
+      impact: "Brought approval SLAs down to 30 mins without extra licenses.",
+      likes: 99,
     },
     {
+      slug: "vitalityai",
       title: "VitalityAI: IoT‑Blockchain Emergency Healthcare",
       desc: "Engineered an AI-driven IoT healthcare platform that leverages blockchain for encrypted medical alert dispatching. Developed during a 36-hour hackathon and awarded by RISE Foundation for innovation in predictive emergency systems.",
       date: "Aug 2024 – Sep 2024",
@@ -76,8 +99,13 @@ export const Projects = () => {
       img: "/vitality.png",
       link: "https://vitalityaiofficial.vercel.app",
       tags: ["AI", "IoT", "Blockchain", "AWS", "MongoDB", "Edge Computing"],
+      focus: ["AI", "Civic", "Security"],
+      impact:
+        "Reached 1.2k simulated emergencies with sub-second alert propagation.",
+      likes: 84,
     },
     {
+      slug: "nirbhaya",
       title: "Nirbhaya: Women’s Safety App",
       desc: "Full-stack mobile application built with React Native featuring GPS tracking, emergency SMS dispatch, JWT authentication, and curated news for women’s safety awareness. Offers a modern UI, SOS button, contact manager, and nearby police locator using Maps API.",
       date: "Feb 2025 – Present",
@@ -91,17 +119,25 @@ export const Projects = () => {
         "Security",
         "Mobile UX",
       ],
+      focus: ["Product", "Civic", "Security"],
+      impact: "SOS flows deliver alerts to guardians in under 8 seconds.",
+      likes: 99,
     },
     {
+      slug: "aws-infra",
       title: "AWS - Cloud Computing Infrastructure Design",
       desc: "Provisioned and automated a highly available AWS cloud infrastructure using EC2, S3, IAM, Auto Scaling, and CloudWatch. Focused on cost-efficiency, identity control, and continuous monitoring across distributed services.",
-      date: "June 2024 – Ongoing",
+      date: "Jun 2024 – Ongoing",
       location: "Remote",
       img: "/cloud_infra.jpg",
       link: "",
       tags: ["AWS", "EC2", "CloudWatch", "IAM", "Auto Scaling", "DevOps"],
+      focus: ["Cloud", "Security"],
+      impact: "Saved ~22% infra cost via right-sized EC2 + predictive scaling.",
+      likes: 58,
     },
     {
+      slug: "urbanmotion",
       title: "UrbanMotion – Car Rental Platform",
       desc: "Developed a multi-role MERN stack web platform with dynamic role-based access for users, retailers, and admins. Integrated live booking flows, real-time updates, and inventory management with modern dashboard design.",
       date: "Jan 2025 – Mar 2025",
@@ -109,8 +145,12 @@ export const Projects = () => {
       img: "/urbanmotion.png",
       link: "https://urbanmotion.vercel.app",
       tags: ["MongoDB", "React", "Next.js", "RBAC", "Full Stack", "UX"],
+      focus: ["Product", "Cloud"],
+      impact: "Improved booking conversions by 32% using live fleet insight.",
+      likes: 86,
     },
     {
+      slug: "kail",
       title: "KAIL – Privacy-Focused Linux Distro",
       desc: "Built a custom Linux distribution with ephemeral sessions, Tor routing, application sandboxing, and encrypted storage partitions. Designed for penetration testers and digital privacy advocates seeking an alternative to traditional OS environments.",
       date: "Nov 2024 – Feb 2025",
@@ -125,17 +165,35 @@ export const Projects = () => {
         "Cybersecurity",
         "Live OS",
       ],
-    },
-    {
-      title: "WireWave – Next‑Gen Messaging Platform",
-      desc: "Secure end‑to‑end encrypted chats with JWT auth, AI enhancements, WhatsApp‑like real‑time messaging. Cross‑platform (web/mobile) with responsive UI and cloud backend.",
-      date: "| Mar 2024 – Jun 2025",
-      location: "Remote",
-      img: "/wirewave.png",
-      link: "https://youtu.be/14Z5hdxQ_J4",
-      tags: ["Next.js", "React Native", "JWT", "Realtime", "AI", "Cloud"],
+      focus: ["Security", "Open Source"],
+      impact: "Boots to a hardened desktop in 18s with ephemeral temp space.",
+      likes: 72,
     },
   ];
+
+  const filters = [
+    "All",
+    "AI",
+    "Automation",
+    "Security",
+    "Cloud",
+    "Product",
+    "Civic",
+    "Open Source",
+  ];
+
+  const [filter, setFilter] = useState("All");
+  const [showAll, setShowAll] = useState(false);
+  const [likes, setLikes] = useState(() =>
+    projects.reduce((acc, project) => {
+      acc[project.slug] = project.likes || 0;
+      return acc;
+    }, {})
+  );
+
+  const handleLike = (slug) => {
+    setLikes((prev) => ({ ...prev, [slug]: (prev[slug] || 0) + 1 }));
+  };
 
   // reorder so WireWave appears first
   const wireIdx = projects.findIndex((p) => /^WireWave/i.test(p.title));
@@ -148,8 +206,12 @@ export const Projects = () => {
         ]
       : projects;
 
-  const [showAll, setShowAll] = useState(false);
-  const visible = showAll ? orderedProjects : orderedProjects.slice(0, 6);
+  const filteredProjects = useMemo(() => {
+    if (filter === "All") return orderedProjects;
+    return orderedProjects.filter((p) => p.focus?.includes(filter));
+  }, [filter, orderedProjects]);
+
+  const visible = showAll ? filteredProjects : filteredProjects.slice(0, 6);
   const isRecent = (date) => /2025|Present/i.test(date);
 
   return (
@@ -166,6 +228,28 @@ export const Projects = () => {
           <p className="text-sm text-gray-400">
             Selected builds across AI, full‑stack, automation, and cloud.
           </p>
+        </div>
+
+        <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-6 sm:mb-8">
+          {filters.map((option) => {
+            const isActive = filter === option;
+            return (
+              <button
+                key={option}
+                onClick={() => {
+                  setFilter(option);
+                  setShowAll(false);
+                }}
+                className={`text-xs sm:text-sm uppercase tracking-[0.25em] px-4 py-2 rounded-full border transition-all duration-300 ${
+                  isActive
+                    ? "border-neonmag-500 text-neonmag-100 bg-white/5 shadow-[0_0_12px_rgba(255,0,212,0.25)]"
+                    : "border-white/10 text-gray-400 hover:text-neonmag-100 hover:border-neonmag-500/60"
+                }`}
+              >
+                {option}
+              </button>
+            );
+          })}
         </div>
 
         {/* Cards */}
@@ -219,6 +303,13 @@ export const Projects = () => {
                   </span>
                 </div>
 
+                {p.impact && (
+                  <div className="mb-3 text-xs sm:text-sm text-neonmag-100 flex items-center gap-2">
+                    <FaChartLine className="text-neonmag-300" />
+                    <span className="break-words">{p.impact}</span>
+                  </div>
+                )}
+
                 {/* Description */}
                 <p className="text-gray-300 mb-3 max-h-none sm:max-h-32 group-hover:max-h-[420px] overflow-hidden transition-all duration-500 break-words">
                   {p.desc}
@@ -249,10 +340,10 @@ export const Projects = () => {
                     </a>
                   )}
                   <button
-                    onClick={() => handleLike(i)}
+                    onClick={() => handleLike(p.slug)}
                     className="flex items-center gap-1 text-pink-400 hover:text-pink-300"
                   >
-                    <FaHeart /> {likes[i]}
+                    <FaHeart /> {likes[p.slug] ?? 0}
                   </button>
                   <button className="flex items-center gap-1 text-gray-400 hover:text-white">
                     <FaShareAlt /> Share
@@ -266,7 +357,7 @@ export const Projects = () => {
         </div>
 
         {/* Toggle bottom center */}
-        {projects.length > 6 && (
+        {filteredProjects.length > 6 && (
           <div className="mt-10 sm:mt-12 flex justify-center">
             <button
               onClick={() => setShowAll((v) => !v)}
