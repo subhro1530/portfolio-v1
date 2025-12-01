@@ -160,9 +160,9 @@ export default function Home() {
       </div>
 
       {/* Top Nav */}
-      <header className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6">
+      <header className="fixed top-0 left-0 right-0 z-50 px-3 sm:px-5">
         <nav
-          className={`relative max-w-6xl mx-auto mt-4 rounded-[32px] border border-neonpurp-500/35 backdrop-blur-2xl px-5 sm:px-8 py-4 shadow-[0_0_35px_rgba(6,0,20,0.65)] transition-colors duration-300 ${
+          className={`relative max-w-6xl mx-auto mt-3 rounded-[28px] border border-neonpurp-500/35 backdrop-blur-2xl px-4 sm:px-7 py-3 sm:py-4 shadow-[0_0_35px_rgba(6,0,20,0.65)] transition-colors duration-300 ${
             navSolid ? "bg-[#05020b]/90" : "bg-[#140224]/70"
           }`}
         >
@@ -219,40 +219,42 @@ export default function Home() {
             </div>
           </div>
           <div
-            className={`md:hidden flex flex-col gap-2 overflow-hidden transition-all duration-500 ${
-              menuOpen ? "max-h-96 mt-4" : "max-h-0"
+            className={`md:hidden transition-all duration-500 overflow-hidden ${
+              menuOpen ? "max-h-[70vh] mt-3" : "max-h-0"
             }`}
           >
-            {nav.map((n) => {
-              const id = n.href.slice(1);
-              const is = active === id;
-              return (
-                <a
-                  key={`mobile-${id}`}
-                  href={n.href}
-                  onClick={() => setMenuOpen(false)}
-                  className={`flex items-center justify-between rounded-2xl border px-4 py-3 text-sm font-semibold tracking-wide transition-all duration-300 ${
-                    is
-                      ? "border-neonmag-500 text-neonmag-100 bg-white/5"
-                      : "border-white/5 text-gray-200 hover:border-neonmag-500/70 hover:text-neonmag-100"
-                  }`}
-                >
-                  {n.label}
-                  <span className="text-[10px] uppercase tracking-[0.3em] text-gray-400">
-                    GO
-                  </span>
-                </a>
-              );
-            })}
-            <a
-              href="https://drive.google.com/drive/folders/1smOcr8ia7QnOLdjPLShJuS5J2VJaGoCj?usp=sharing"
-              className="w-full text-center text-xs uppercase tracking-[0.2em] px-4 py-3 rounded-2xl bg-gradient-to-r from-neonmag-500 via-neonpurp-500 to-neonmag-400 text-black font-semibold"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setMenuOpen(false)}
-            >
-              Download CV
-            </a>
+            <div className="flex flex-col gap-2 max-h-[70vh] overflow-y-auto pr-1">
+              {nav.map((n) => {
+                const id = n.href.slice(1);
+                const is = active === id;
+                return (
+                  <a
+                    key={`mobile-${id}`}
+                    href={n.href}
+                    onClick={() => setMenuOpen(false)}
+                    className={`flex items-center justify-between rounded-2xl border px-3 py-2 text-xs font-semibold tracking-wide transition-all duration-300 ${
+                      is
+                        ? "border-neonmag-500 text-neonmag-100 bg-white/5"
+                        : "border-white/5 text-gray-200 hover:border-neonmag-500/70 hover:text-neonmag-100"
+                    }`}
+                  >
+                    {n.label}
+                    <span className="text-[10px] uppercase tracking-[0.3em] text-gray-400">
+                      GO
+                    </span>
+                  </a>
+                );
+              })}
+              <a
+                href="https://drive.google.com/drive/folders/1smOcr8ia7QnOLdjPLShJuS5J2VJaGoCj?usp=sharing"
+                className="w-full text-center text-xs uppercase tracking-[0.2em] px-4 py-2 rounded-2xl bg-gradient-to-r from-neonmag-500 via-neonpurp-500 to-neonmag-400 text-black font-semibold"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMenuOpen(false)}
+              >
+                Download CV
+              </a>
+            </div>
           </div>
           <div
             ref={progressRef}
